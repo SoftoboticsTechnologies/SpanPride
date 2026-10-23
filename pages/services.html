@@ -46,7 +46,7 @@
         <li><a class="nav__link" href="../pages/testimonials.html">Testimonials</a></li>
         <li><a class="nav__link" href="../pages/contact.html">Contact</a></li>
       </ul>
-      <a class="btn btn--sm" href="../pages/contact.html">Let's Talk</a>
+      <a class="btn btn--sm" href="../pages/contact.html" data-talk-open aria-haspopup="dialog">Let's Talk</a>
     </nav>
   </div>
   <div class="nav-backdrop" aria-hidden="true"></div>
@@ -112,7 +112,7 @@
           <p class="card__num">06.</p>
           <div>
             <h3>Need a Custom Work?</h3>
-            <a class="btn" href="../pages/contact.html">Let&#x27;s Talk<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn" href="../pages/contact.html" data-talk-open aria-haspopup="dialog">Let&#x27;s Talk<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
       </div>
@@ -158,6 +158,41 @@
     </div>
   </div>
 </footer>
+
+<dialog class="modal" id="talk-modal" aria-labelledby="talk-modal-title">
+  <div class="modal__panel">
+    <button class="modal__close" type="button" data-talk-close aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <h2 class="modal__title" id="talk-modal-title">Send Me a Message</h2>
+    <form class="form" data-contact-form method="post" action="#" novalidate aria-labelledby="talk-modal-title">
+      <div class="form__row">
+        <div class="field">
+              <label class="visually-hidden" for="mf-name">Name *</label>
+              <input id="mf-name" type="text" name="name" placeholder="Name *" autocomplete="name" data-required aria-required="true" aria-describedby="mf-name-err">
+              <div class="field__error" id="mf-name-err" aria-live="polite">This field is required.</div>
+            </div>
+        <div class="field">
+              <label class="visually-hidden" for="mf-email">Email *</label>
+              <input id="mf-email" type="email" name="email" placeholder="Email *" autocomplete="email" data-required aria-required="true" aria-describedby="mf-email-err">
+              <div class="field__error" id="mf-email-err" aria-live="polite">This field is required.</div>
+            </div>
+      </div>
+      <div class="field">
+              <label class="visually-hidden" for="mf-subject">Subject *</label>
+              <input id="mf-subject" type="text" name="subject" placeholder="Subject *" autocomplete="off" data-required aria-required="true" aria-describedby="mf-subject-err">
+              <div class="field__error" id="mf-subject-err" aria-live="polite">This field is required.</div>
+            </div>
+      <div class="field">
+              <label class="visually-hidden" for="mf-message">Message</label>
+              <textarea id="mf-message" name="message" placeholder="Message" aria-required="false" aria-describedby="mf-message-err"></textarea>
+              <div class="field__error" id="mf-message-err" aria-live="polite">This field is required.</div>
+            </div>
+      <div class="form__status" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span class="form__status-text"></span></div>
+      <button class="btn" type="submit">Send Message<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+  </div>
+</dialog>
 
 <script src="../js/config.js"></script>
 <script src="../js/navigation.js"></script>

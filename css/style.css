@@ -1040,6 +1040,57 @@ a.social__item:hover { background: var(--red); border-color: var(--red); color: 
 .form .btn { justify-self: start; }
 .form .btn[disabled] { opacity: 0.6; cursor: progress; }
 
+/* "Let's Talk" popup */
+body.modal-open { overflow: hidden; }
+.modal {
+  width: min(640px, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.modal::backdrop {
+  background: rgba(20, 22, 25, 0.72);
+  backdrop-filter: blur(3px);
+}
+.modal[open] { animation: modal-in 0.35s var(--ease); }
+.modal[open]::backdrop { animation: fade-in 0.35s var(--ease); }
+@keyframes modal-in { from { opacity: 0; transform: translateY(24px) scale(0.98); } }
+@keyframes fade-in { from { opacity: 0; } }
+.modal__panel {
+  position: relative;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  padding: clamp(1.75rem, 1rem + 3vw, 3rem);
+  border-top: 6px solid var(--red-bright);
+}
+.modal__title {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  margin: 0 3rem 1.75rem 0;
+}
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.modal__close svg { width: 20px; height: 20px; }
+.modal__close:hover { background: var(--red); border-color: var(--red); color: #fff; transform: rotate(90deg); }
+
 .map {
   display: block;
   width: 100%;

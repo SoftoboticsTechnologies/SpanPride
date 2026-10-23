@@ -229,10 +229,10 @@
   });
 
   /* ---------------------------------------------------------------------
-     Contact form — validation messages copied from the original form
+     Contact forms (Contact page + "Let's Talk" popup) — validation
+     messages copied from the original form
      ------------------------------------------------------------------- */
-  var form = document.querySelector("[data-contact-form]");
-  if (form) {
+  document.querySelectorAll("[data-contact-form]").forEach(function (form) {
     var MSG_REQUIRED = "This field is required.";
     var MSG_EMAIL = "Enter a valid email address.";
     var status = form.querySelector(".form__status");
@@ -321,6 +321,45 @@
           showStatus("error", "There was an error trying to submit your form. Please try again.");
         })
         .then(function () { submitBtn.disabled = false; });
+    });
+  });
+
+  /* ---------------------------------------------------------------------
+     "Let's Talk" popup — buttons keep their href to the Contact page as a
+     no-JS fallback; with JS they open the same form in a modal dialog.
+     ------------------------------------------------------------------- */
+  var modal = document.getElementById("talk-modal");
+  if (modal && typeof modal.showModal === "function") {
+    var opener = null;
+
+    function openModal(trigger) {
+      opener = trigger;
+      modal.showModal();
+      document.body.classList.add("modal-open");
+      var first = modal.querySelector("input, textarea");
+      if (first) first.focus();
+    }
+
+    document.querySelectorAll("[data-talk-open]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        // let the mobile drawer finish closing before the dialog takes focus
+        window.setTimeout(function () { openModal(btn); }, 0);
+      });
+    });
+
+    modal.querySelectorAll("[data-talk-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () { modal.close(); });
+    });
+
+    // click on the backdrop (outside the panel) closes the dialog
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) modal.close();
+    });
+
+    modal.addEventListener("close", function () {
+      document.body.classList.remove("modal-open");
+      if (opener && document.contains(opener) && opener.offsetParent !== null) opener.focus();
     });
   }
 })();
