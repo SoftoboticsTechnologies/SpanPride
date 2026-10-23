@@ -1,0 +1,189 @@
+/* ==========================================================================
+   Responsive overrides — desktop-first, tested at 1440 / 1280 / 1024 / 768 /
+   425 / 375 / 320 px.
+   ========================================================================== */
+
+/* ≤ 1200px : laptops ----------------------------------------------------- */
+@media (max-width: 1200px) {
+  .nav { gap: 1.25rem; }
+  .nav__link { padding-inline: 0.65rem; }
+  .nav__link::after { left: 0.65rem; right: 0.65rem; }
+  .brand__name { display: none; }
+  .footer-main { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+/* ≤ 1024px : tablets landscape & mobile nav ----------------------------- */
+@media (max-width: 1024px) {
+  :root { --header-h: 72px; }
+
+  .brand__name { display: block; }
+  .brand__logo { width: 54px; }
+
+  .nav-toggle { display: block; z-index: 102; }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+    width: min(380px, 100%);
+    padding: calc(var(--header-h) + 1.5rem) 1.5rem 2rem;
+    background: var(--ink);
+    overflow-y: auto;
+    /* clip (not translate) so the closed drawer never widens the page */
+    clip-path: inset(0 0 0 100%);
+    visibility: hidden;
+    transition: clip-path 0.45s var(--ease), visibility 0s linear 0.45s;
+  }
+  .nav.is-open {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition: clip-path 0.45s var(--ease), visibility 0s;
+  }
+  .nav__list { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav__list li { border-bottom: 1px solid var(--line-dark); }
+  .nav__link {
+    padding: 1rem 0.25rem;
+    font-size: 1.25rem;
+    color: #fff;
+  }
+  .nav__link::after { display: none; }
+  .nav__link:hover,
+  .nav__link[aria-current="page"] { color: #ff4d55; }
+  .nav__link[aria-current="page"]::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 8px;
+    margin-right: 0.75rem;
+    background: var(--red-bright);
+    transform: skewX(-28deg);
+    vertical-align: middle;
+  }
+  .nav .btn { width: 100%; }
+
+  /* toggle sits above the drawer and turns light while open */
+  .nav-toggle[aria-expanded="true"] { background: var(--ink-3); border-color: var(--line-dark); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar { background: #fff; }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: rgba(20, 22, 25, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+  .nav-backdrop.is-visible { opacity: 1; pointer-events: auto; }
+
+  .hero__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); }
+
+  .cards,
+  .expertise { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .recent__inner { grid-template-columns: 1fr; }
+  .recent__text { max-width: 640px; }
+
+  .testimonials { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .testimonial,
+  .testimonial:nth-child(4) { grid-column: auto; }
+  .testimonial:nth-child(5) { grid-column: 1 / -1; }
+
+  .about-solutions__grid { grid-template-columns: 1fr; }
+  .mosaic { max-width: 640px; }
+}
+
+/* ≤ 900px : tablets portrait -------------------------------------------- */
+@media (max-width: 900px) {
+  .grid-2,
+  .hero__inner,
+  .about-trust,
+  .project,
+  .contact-grid { grid-template-columns: 1fr; }
+
+  .hero__media { justify-self: start; max-width: 420px; }
+  .hero::after { width: 70%; height: 70px; bottom: -30px; }
+
+  .project:nth-child(even) .project__info { order: 0; }
+
+  .statement { grid-template-columns: 1fr; align-items: start; }
+
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .section-head--center { align-items: center; }
+
+  .page-hero--logo .page-hero__bg { width: 70%; opacity: 0.08; }
+}
+
+/* ≤ 768px --------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-bottom__inner { flex-direction: column; align-items: flex-start; }
+  .powered-by { padding-left: 0; border-left: 0; }
+
+  .form__row { grid-template-columns: 1fr; }
+
+  .carousel__btn { width: 40px; height: 40px; margin-top: -20px; }
+  .carousel__btn--prev { left: 0.6rem; }
+  .carousel__btn--next { right: 0.6rem; }
+}
+
+/* ≤ 600px : phones ------------------------------------------------------ */
+@media (max-width: 600px) {
+  body { font-size: 1rem; }
+
+  .cards,
+  .expertise,
+  .testimonials,
+  .counters,
+  .footer-main { grid-template-columns: 1fr; }
+  .testimonial:nth-child(5) { grid-column: auto; }
+
+  .hero__stats li { flex: 1 1 100%; }
+  .hero__media::before { inset: 1rem -0.75rem -0.75rem 1rem; }
+  .hero .btn,
+  .card--cta .btn { width: 100%; }
+
+  .mosaic { gap: 0.6rem; }
+
+  .contact-item { gap: 0.85rem; }
+  .contact-item__icon { width: 40px; height: 40px; }
+  .form .btn { width: 100%; justify-self: stretch; }
+
+  .carousel__dots { bottom: 0.6rem; }
+  .carousel__dot { width: 18px; }
+  .carousel__dot[aria-current="true"] { width: 28px; }
+}
+
+/* ≤ 425px --------------------------------------------------------------- */
+@media (max-width: 425px) {
+  .brand__name { font-size: 0.8rem; max-width: 12ch; }
+  .brand__logo { width: 46px; }
+  .btn { padding-inline: 1.5rem; }
+  .carousel__counter { top: 0.6rem; right: 0.6rem; }
+}
+
+/* ≤ 360px : small phones (320px) ---------------------------------------- */
+@media (max-width: 360px) {
+  .brand { gap: 0.6rem; }
+  .brand__name { font-size: 0.72rem; }
+  .nav-toggle { width: 44px; height: 44px; }
+  .nav-toggle__bar { left: 11px; }
+  .nav-toggle__bar:nth-child(1) { top: 14px; }
+  .nav-toggle__bar:nth-child(2) { top: 20px; }
+  .nav-toggle__bar:nth-child(3) { top: 26px; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1),
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) { top: 20px; }
+  .carousel__btn { width: 36px; height: 36px; margin-top: -18px; }
+}
+
+/* ≥ 1600px : large screens --------------------------------------------- */
+@media (min-width: 1600px) {
+  :root { --container: 1360px; }
+}
